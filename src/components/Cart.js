@@ -20,7 +20,7 @@ const Cart = () => {
   //       return response.json();
   //     })
   //     .then((jsonData) => {
-  //       setData(jsonData);
+  //       return jsonData;
   //     })
   //     .catch((error) => {
   //       console.error("Error fetching data:", error);
@@ -37,12 +37,27 @@ const Cart = () => {
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const handleDeleteItem = (id) => {
+    // alert(id);
+    return dispatch({
+      type: "REMOVE_ITEM",
+      payload: id,
+    });
+  };
+
+  const ClearCart = () => {
+    return dispatch({
+      type: "CLEAR_CART",
+    });
+  };
+
   console.log(state);
 
   return (
     <div>
       Cart
-      <CartContent.Provider value={{ ...state }}>
+      <CartContent.Provider value={{ ...state, handleDeleteItem, ClearCart }}>
         <ContextCart />
       </CartContent.Provider>
     </div>
