@@ -11,7 +11,8 @@ const CartStyle = styled.div`
 const ContextCart = () => {
   //   const [data, setData] = useState([]);
 
-  const { data, handleDeleteItem, ClearCart } = useContext(CartContent);
+  const { data, handleDeleteItem, ClearCart, increment, decrement, totalItem } =
+    useContext(CartContent);
   // console.log(data);
   return (
     <CartStyle>
@@ -23,12 +24,13 @@ const ContextCart = () => {
         Clear Cart
       </p>
       <span>
-        {data.length}
+        {/* {data.length} */}
+        {totalItem}
         {data.length === 1 ? "Product" : "Products"} are there{" "}
       </span>
       {data.map((item, index) => {
         return (
-          <>
+          <div>
             <img
               src={item.url}
               key={index}
@@ -44,7 +46,25 @@ const ContextCart = () => {
             >
               Delete
             </span>
-          </>
+            <span>
+              {` `}
+              <span
+                onClick={() => {
+                  increment(item.id);
+                }}
+              >
+                Inc
+              </span>{" "}
+              {item.quantity}{" "}
+              <span
+                onClick={() => {
+                  decrement(item.id);
+                }}
+              >
+                Dec
+              </span>
+            </span>
+          </div>
         );
       })}
     </CartStyle>

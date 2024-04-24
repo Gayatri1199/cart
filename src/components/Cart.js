@@ -52,12 +52,32 @@ const Cart = () => {
     });
   };
 
+  const increment = (id) => {
+    return dispatch({
+      type: "INCREMENT",
+      payload: id,
+    });
+  };
+
+  const decrement = (id) => {
+    return dispatch({
+      type: "DECREMENT",
+      payload: id,
+    });
+  };
+
+  useEffect(() => {
+    dispatch({ type: "GET_TOTAL" });
+    console.log("There is some changes in state");
+  }, [state.data]);
   console.log(state);
 
   return (
     <div>
       Cart
-      <CartContent.Provider value={{ ...state, handleDeleteItem, ClearCart }}>
+      <CartContent.Provider
+        value={{ ...state, handleDeleteItem, ClearCart, increment, decrement }}
+      >
         <ContextCart />
       </CartContent.Provider>
     </div>
